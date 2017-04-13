@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Inception表结构评审系统{% endblock %}
+
+{% block content %}
+
+<div class="main-content" xmlns="http://www.w3.org/1999/html">
+<div class="breadcrumbs" id="breadcrumbs">        
+    <script type="text/javascript">
+try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="/index">Home</a>
+        </li>
+        <li>
+        <a>控制台</a>
+        </li>
+        <li>
+        <a>更多操作记录</a>
+        </li>
+    </ul><!-- .breadcrumb -->
+
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+
+<div class="page-content">
+<div class="page-header">
+    <h1>更多操作记录<small></h1>
+</div>
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+            <table border="0">
+                <tr class="table-header"><td class="col-lg-2">备份库信息</td><td class="col-lg-2">操作序列号</td><td class="col-lg-2">时间</td><td class="col-lg-1">操作类型</td><td class="col-lg-1">对应表名</td></tr>
+            </table>
+            <table id="table_x">
+{#                <tr><td class="col-lg-2"></td><td class="col-lg-2"></td><td class="col-lg-2"></td><td class="col-lg-1"></td><td class="col-lg-1"></td></tr>#}
+                    {%  for line in html_table_content %}
+                        {% if line[0]%20 == 1 %} {# 判断是否是第一行，如果不是第一行，则不带备份库信息 #}
+                            <tr> <td class="col-lg-2"> {{ line[1] }} </td>  <td class="col-lg-2"><a href="operation_detail?bakdb={{ line[1] }}&opid={{ line[2] }}" title="查看此次操作详情"> {{ line[2] }} </a></td> <td class="col-lg-2">{{ line[3] }}</td> <td class="col-lg-1">{{ line[4] }}</td> <td class="col-lg-1">{{ line[5] }}</td> </tr>
+                        {% else %}
+                            <tr> <td class="col-lg-2"> </td>  <td class="col-lg-2"><a href="operation_detail?bakdb={{ line[1] }}&opid={{ line[2] }}" title="查看此次操作详情"> {{ line[2] }} </a></td> <td class="col-lg-2">{{ line[3] }}</td> <td class="col-lg-1">{{ line[4] }}</td> <td class="col-lg-1">{{ line[5] }}</td> </tr>
+                        {% endif %}
+                    {% endfor %}
+            </table>
+            <span id="spanFirst">首页</span> <span id="spanPre">上一页</span> <span id="spanNext">下一页</span> <span id="spanLast">尾页</span> 第<span id="spanPageNum"></span>页/共<span id="spanTotalPage"></span>
+</div>
+</div>
+</div>
+
+
+
+
+{% if pagination %}
+<tr>
+    <div class="dataTables_paginate paging_bootstrap">
+    <div class="panel-footer"></div>
+        {{ macros.pagination_widget(pagination, '.servers') }}</div>
+</tr>
+{% endif %}
+</div>
+</div>
+<script type="text/javascript">
+    {# http://www.cnblogs.com/137913828S2/archive/2012/07/16/js分页.html #}
+// JavaScript Document By lishewen
+var theTable = document.getElementById("table_x");
+var totalPage = document.getElementById("spanTotalPage");
+var pageNum = document.getElementById("spanPageNum");
+
+var spanPre = document.getElementById("spanPre");
+var spanNext = document.getElementById("spanNext");
+var spanFirst = document.getElementById("spanFirst");
+var spanLast = document.getElementById("spanLast");
+
+var numberRowsInTable = theTable.rows.length;
+var pageSize = 20;
+var page = 1;
+
+//下一页
+function next(){
+
+    hideTable();
+
+    currentRow = pageSize * page;
+    maxRow = currentRow + pageSize;
+    if ( maxRow > numberRowsInTable ) maxRow = numberRowsInTable;
+    for ( var i = currentRow; i< maxRow; i++ ){
+        theTable.rows[i].style.display = '';
+    }
+    page++;
+
+    if ( maxRow == numberRowsInTable ) { nextText(); lastText(); }
+    showPage();
+    preLink();
+    firstLink();
+}
+
+//上一页
+function pre(){
+
+    hideTable();
+
+    page--;
+
+    currentRow = pageSize * page;
+    maxRow = currentRow - pageSize;
+    if ( currentRow > numberRowsInTable ) currentRow = numberRowsInTable;
+    for ( var i = maxRow; i< currentRow; i++ ){
+        theTable.rows[i].style.display = '';
+    }
+
+
+    if ( maxRow == 0 ){ preText(); firstText(); }
+    showPage();
+    nextLink();
+    lastLink();
+}
+
+//第一页
+function first(){
+    hideTable();
+    page = 1;
+    for ( var i = 0; i<pageSize; i++ ){
+        theTable.rows[i].style.display = '';
+    }
+    showPage();
+
+    preText();
+    nextLink();
+    lastLink();
+}
+
+//最后一页
+function last(){
+    hideTable();
+    page = pageCount();
+    currentRow = pageSize * (page - 1);
+    for ( var i = currentRow; i<numberRowsInTable; i++ ){
+        theTable.rows[i].style.display = '';
+    }
+    showPage();
+
+    preLink();
+    nextText();
+    firstLink();
+}
+
+function hideTable(){
+    for ( var i = 0; i<numberRowsInTable; i++ ){
+        theTable.rows[i].style.display = 'none';
+    }
+}
+
+function showPage(){
+ pageNum.innerHTML = page;
+}
+
+//总共页数
+function pageCount(){
+    var count = 0;
+    if ( numberRowsInTable%pageSize != 0 ) count = 1;
+    return parseInt(numberRowsInTable/pageSize) + count;
+}
+
+//显示链接
+function preLink(){ spanPre.innerHTML = "<a href='javascript:pre();'>上一页</a>";}
+function preText(){ spanPre.innerHTML = "上一页";}
+
+function nextLink(){ spanNext.innerHTML = "<a href='javascript:next();'>下一页</a>";}
+function nextText(){ spanNext.innerHTML = "下一页";}
+
+function firstLink(){ spanFirst.innerHTML = "<a href='javascript:first();'>首页</a>";}
+function firstText(){ spanFirst.innerHTML = "首页";}
+
+function lastLink(){ spanLast.innerHTML = "<a href='javascript:last();'>尾页</a>";}
+function lastText(){ spanLast.innerHTML = "尾页";}
+
+//隐藏表格
+function hide(){
+    for ( var i = pageSize; i<numberRowsInTable; i++ ){
+        theTable.rows[i].style.display = 'none';
+    }
+
+    totalPage.innerHTML = pageCount();
+    pageNum.innerHTML = '1';
+
+    nextLink();
+    lastLink();
+}
+
+hide();
+</script>
+{#<span id="spanFirst">首页</span> <span id="spanPre">上一页</span> <span id="spanNext">下一页</span> <span id="spanLast">尾页</span> 第<span id="spanPageNum"></span>页/共<span id="spanTotalPage"></span>页#}
+
+<script type="text/javascript">
+window.onload = function color(){
+    var table = document.getElementById("table_x");
+    var rows = table.getElementsByTagName("tr");
+    for(var i=0;i<rows.length;i++){
+            if (i % 2 == 0) {
+                rows[i].style.backgroundColor = "#EAF2D3"
+            }
+            else {
+                rows[i].style.backgroundColor = "White";
+            }
+    }
+}
+</script>
+
+{% endblock %}
