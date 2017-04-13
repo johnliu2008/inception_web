@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Inception表结构评审系统{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+<div class="breadcrumbs" id="breadcrumbs">        
+    <script type="text/javascript">
+try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="/index">Home</a>
+        </li>
+        <li>
+        <a>控制台</a>
+        </li>
+        <li>
+        <a>更多操作记录</a>
+        </li>
+        <li>
+        <a>操作详情</a>
+        </li>
+    </ul><!-- .breadcrumb -->
+
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+
+<div class="page-content">
+<div class="page-header">
+    <h1>操作详情<small></h1>
+</div>
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+{#            <div class="panel-heading">表头</div>#}
+            <div class="panel-body">
+            <table border="0">
+                {%  for line in html_table_content %}
+                    {% if line[0][0] %}
+                        <tr class="table-header"><th class="col-lg-1">备份库&nbsp&nbsp:&nbsp&nbsp <a class="white" href="more_operation?bakdb={{ line[0][0] }}" title="返回 <更多操作记录>">{{ line[0][0] }}</a></th><td class="col-lg-1"></td></tr>
+                        </table>
+                        <table id="table_x" border="0">
+                        <tr><td class="col-lg-1"></td><td></td></tr>
+                        <tr><td>opid_time:</td><td>{{ line[0][1] }}</td></tr>
+                        <tr><td>time:</td><td>{{ line[0][2] }}</td></tr>
+                        <tr><td>tablename:</td><td>{{ line[0][3] }}</td></tr>
+                        <tr><td>start_binlog_file:</td><td>{{ line[0][4] }}</td></tr>
+                        <tr><td>start_binlog_pos:</td><td>{{ line[0][5] }}</td></tr>
+                        <tr><td>end_binlog_file:</td><td>{{ line[0][6] }}</td></tr>
+                        <tr><td>end_binlog_pos:</td><td>{{ line[0][7] }}</td></tr>
+                        <tr><td>sql_statement:</td><td>{{ line[0][8] }}</td></tr>
+                        <tr><td>rollback_statement:</td><td>{{ line[0][9] }}</td></tr>
+                        </table>
+                    {% else %}
+                        <tr class="table-header"><th class="col-lg-1">备份库&nbsp&nbsp:&nbsp&nbsp N/A</th><td class="col-lg-1"></td></tr>
+                        </table>
+                        <table border="0">
+                        <tr><td>opid_time:</td><td class="red">&nbsp&nbsp&nbsp&nbsp 未查询到相关记录！</td></tr>
+                        </table>
+                    {% endif %}
+                {% endfor %}
+            {% if html_table_content[0][0][0] %}
+                <tr class="table-responsive"><th class="col-lg-1">&nbsp</th><td class="col-lg-1"></td></tr>
+                <tr class="table-responsive"><th class="col-lg-1"> <a href="more_operation?bakdb=回退" title="回滚本次操作，请谨慎选择！">ROLLBACK!</a>&nbsp&nbsp&nbsp&nbsp<label class="light-red"><- 回滚本次操作，请谨慎选择！</label></th><td class="col-lg-1"></td></tr>
+            {% endif %}
+                </table>
+</div>
+</div>
+</div>
+
+
+
+
+{% if pagination %}
+<tr>
+    <div class="dataTables_paginate paging_bootstrap">
+    <div class="panel-footer"></div>
+        {{ macros.pagination_widget(pagination, '.servers') }}</div>
+</tr>
+{% endif %}
+</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                       </div>                                                                                                                                                                         </div>
+
+    <script type="text/javascript">
+window.onload = function color(){
+    var table = document.getElementById("table_x");
+    var rows = table.getElementsByTagName("tr");
+    for(var i=0;i<rows.length;i++){
+        if (i==0){}
+        else {
+            if (i % 2 == 0) {
+                rows[i].style.backgroundColor = "#EAF2D3"
+            }
+            else {
+                rows[i].style.backgroundColor = "White";
+            }
+        }
+    }
+}
+</script>
+
+{% endblock %}

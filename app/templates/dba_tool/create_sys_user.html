@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Inception表结构评审系统{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+<div class="breadcrumbs" id="breadcrumbs">        
+    <script type="text/javascript">
+try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="/index">Home</a>
+        </li>
+
+        <li>
+        <a>运维工具</a>
+        </li>
+        <li class="active"><a>创建系统用户</a></li>
+    </ul><!-- .breadcrumb -->
+
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+
+<div class="page-content">
+<div class="page-header">
+    <h1>创建系统用户<small></h1>
+</div>
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+<form class="form-horizontal" role="form" action="create_sys_user" method='post'>
+    <div class="form-group">
+      <div class="col-sm-9">
+
+          <li role="presentation" class="divider"></li>
+            <input type="text" name="username" class="input-block-level" placeholder="username"><br><br>
+            <input type="text" name="password" class="input-block-level" placeholder="password"><br><br>
+      </div>
+    </div>
+
+    <div class="space-4"></div>
+    <div class="clearfix form-actions">
+    <div class="col-md-offset-0 col-md-5">
+        <button class="btn btn-info" type="submit">
+            <i class="icon-ok bigger-110"></i>
+            Create
+        </button>
+        &nbsp; &nbsp; &nbsp;
+        <button class="btn" type="reset">
+            <i class="icon-undo bigger-110"></i>
+            Reset
+        </button>
+          <table><tr><td class="red">{{ result }}</td></tr></table>
+    </div>
+    </div>
+
+<div class="hr hr-24"></div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+{% if pagination %}
+<tr>
+    <div class="dataTables_paginate paging_bootstrap">
+    <div class="panel-footer"></div>
+        {{ macros.pagination_widget(pagination, '.servers') }}</div>
+</tr>
+{% endif %}
+</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                       </div>                                                                                                                                                                         </div>
+
+
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}Inception表结构评审系统{% endblock %}
+
+{% block content %}
+
+<div class="main-content">
+<div class="breadcrumbs" id="breadcrumbs">        
+    <script type="text/javascript">
+try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+    </script>
+
+    <ul class="breadcrumb">
+        <li>
+        <i class="icon-home home-icon"></i>
+        <a href="/index">Home</a>
+        </li>
+
+        <li>
+        <a>运维工具</a>
+        </li>
+        <li class="active"><a>Inception SQL语句评审系统</a></li>
+    </ul><!-- .breadcrumb -->
+
+</div>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+
+<div class="page-content">
+<div class="page-header">
+    <h1>Inception SQL语句评审系统<small></h1>
+</div>
+
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="panel panel-primary">
+            <div class="panel-heading">请选择对应的数据库实例，并输入需要评审的MySQL语句</div>
+            <div class="panel-body">
+<form class="form-horizontal" role="form" action="sql_audit" method='post'>
+    <div class="form-group">
+      <div class="col-xs-11">
+          请选择需要被执行的数据库实例：&nbsp;
+          <select name="db_select" class="selected">
+              <option></option>
+              <option value="RC_main">RC_main</option>
+              <option value="RC_snap">RC_snap</option>
+              <option value="RC_calc">RC_calc</option>
+              <option values="">------------</option>
+              <option value="PRD_main" class="light-red">!! PRD_MAIN !!</option>
+              <option value="PRD_snap" class="light-red">!! PRD_SNAP !!</option>
+              <option value="PRD_calc" class="light-red">!! PRD_CALC !!</option>
+          </select>
+          <li role="presentation" class="divider"></li>
+          <textarea id="form-field-2" placeholder="use test;" class="col-xs-10 col-sm-12" name="sql_content" rows="9" cols="100">{{abc}}</textarea>
+      </div>
+    </div>
+        <input name="is_execute" type="radio" value="--enable-check" checked="checked" />仅审核&nbsp;&nbsp;
+        <input name="is_execute" type="radio" value="--enable-execute" />执行
+{#    <div class="space-4"></div>#}
+    <div class="clearfix form-actions">
+{#    <div class="col-md-offset-0 col-md-5">#}
+
+        <button class="btn btn-info" type="submit">
+            <i class="icon-ok bigger-110"></i>
+            Submit
+        </button>
+        &nbsp; &nbsp; &nbsp;
+        <button class="btn" type="reset">
+            <i class="icon-undo bigger-110"></i>
+            Reset
+        </button>
+    </div>
+{#    </div>#}
+
+{#<div class="hr hr-24"></div>#}
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+
+{% if sql_review != {} %}
+<div class="col-md-9">
+<div class="panel-footer">
+    <table class="table red">
+        {% for line in sql_review %}
+        <tr>
+            <th>{{line}}</th>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+</div>
+{% endif %}
+
+
+{% if pagination %}
+<tr>
+    <div class="dataTables_paginate paging_bootstrap">
+    <div class="panel-footer"></div>
+        {{ macros.pagination_widget(pagination, '.servers') }}</div>
+</tr>
+{% endif %}
+</div>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                       </div>                                                                                                                                                                         </div>
+
+
+{% endblock %}

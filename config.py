@@ -4,4 +4,5 @@
 __author__ = 'lihui'
 
 CSRF_ENABLED = True
-SECRET_KEY = 'helloword'
+SECRET_KEY = 'liuj'
+DEBUG_TB_INTERCEPT_REDIRECTS = False

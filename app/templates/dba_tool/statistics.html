@@ -17,7 +17,7 @@ try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
         <a href="/index">Home</a>
         </li>
         <li>
-        <a>最近审计记录</a>
+        <a>Inception统计</a>
         </li>
     </ul><!-- .breadcrumb -->
 
@@ -29,7 +29,7 @@ try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
 
 <div class="page-content">
 <div class="page-header">
-    <h1>最近审计记录<small></h1>
+    <h1>Inception统计<small></h1>
 </div>
 
 
@@ -39,15 +39,11 @@ try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
 {#            <div class="panel-heading">表头</div>#}
             <div class="panel-body">
             <table id="table_x" border="0">
-                <tr class="table-header"><td class="col-lg-2">备份库信息</td><td class="col-lg-2">操作序列号</td><td class="col-lg-2">时间</td><td class="col-lg-1">操作类型</td><td class="col-lg-1">对应表名</td></tr>
-                {% for cnt in html_table_content %}
-                    {% for line in cnt %}
-                        {% if line[0] == 1 %} {# 判断是否是第一行，如果不是第一行，则不带备份库信息 #}
-                            <tr> <td><a href="/more_operation?bakdb={{ line[1] }}" title="点击查看此实例的更多操作"> {{ line[1] }} </a></td>  <td><a href="operation_detail?bakdb={{ line[1] }}&opid={{ line[2] }}" title="查看此次操作详情"> {{ line[2] }} </a></td> <td>{{ line[3] }}</td> <td>{{ line[4] }}</td> <td>{{ line[5] }}</td> </tr>
-                        {% else %}
-                            <tr> <td></td>  <td><a href="operation_detail?bakdb={{ line[1] }}&opid={{ line[2] }}" title="查看此次操作详情"> {{ line[2] }} </a></td> <td>{{ line[3] }}</td> <td>{{ line[4] }}</td> <td>{{ line[5] }}</td> </tr>
-                        {% endif %}
-                    {% endfor %}
+                <tr  align="center" class="table-header"><td class="col-lg-3">date</td><td class="col-lg-1">select</td><td>dml</td><td>alter</td>
+                    <td>index</td><td>column</td><td>c/d/t table</td><td>createdb</td></tr>
+                {% for line in html_table_content %}
+                        <tr align="center"> <td>{{ line[0] }}</td><td>{{ line[1] }}</td><td>{{ line[2] }}</td><td>{{ line[3] }}</td><td>{{ line[4] }}</td><td>{{ line[5] }}</td><td>{{ line[6] }}</td><td>{{ line[7] }}</td></tr>
+{#                            <tr> <td>{{ line[0] }}</td><td>{{ line[1] }}</td><td>{{ line[2] }}</td><td>{{ line[3] }}</td><td>{{ line[4] }}</td><td>{{ line[5] }}</td><td>{{ line[6] }}</td><td>{{ line[7] }}</td><td>{{ line[8] }}</td><td>{{ line[9] }}</td><td>{{ line[10] }}</td><td>{{ line[11] }}</td><td>{{ line[12] }}</td><td>{{ line[13] }}</td><td>{{ line[14] }}</td><td>{{ line[15] }}</td><td>{{ line[16] }}</td><td>{{ line[17] }}</td><td>{{ line[18] }}</td> </tr>#}
                 {% endfor %}
 {#                {{ html_table_content[2][44] }}#}
             </table>

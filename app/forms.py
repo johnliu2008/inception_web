@@ -6,6 +6,6 @@ from flask_wtf import Form
 from wtforms import TextAreaField,SubmitField,validators
 from wtforms.validators import Required
 
-class InceptionTableStructure(Form):
+class InceptionAudit(Form):
     table_name = TextAreaField('请输入需要评审的表结构: ', validators=[Required()])
     submit = SubmitField('Submit')

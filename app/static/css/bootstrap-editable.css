@@ -1,8 +1,8 @@
-/*! X-editable - v1.4.6 
-* In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
-* http://github.com/vitalets/x-editable
-* Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
-
+/*! X-editable - v1.4.6 
+* In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
+* http://github.com/vitalets/x-editable
+* Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
+
 .editableform {
     margin-bottom: 0; /* overwrites bootstrap margin */
 }
@@ -137,7 +137,7 @@
 
 .editable-pre-wrapped {
    white-space: pre-wrap;
-}
+}
 .editable-container.editable-popup {
     max-width: none !important; /* without this rule poshytip/tooltip does not stretch */
 }  
@@ -158,7 +158,7 @@
 .editable-container.ui-widget {
    font-size: inherit;  /* jqueryui widget font 1.1em too big, overwrite it */
    z-index: 9990; /* should be less than select2 dropdown z-index to close dropdown first when click */
-}
+}
 .editable-click, 
 a.editable-click, 
 a.editable-click:hover {
@@ -204,7 +204,7 @@ a.editable-click.editable-disabled:hover {
     display:inline-block;
 }
 
-
+
 /*!
  * Datepicker for Bootstrap
  *

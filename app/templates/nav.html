@@ -20,7 +20,11 @@
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 								<span class="user-info">
 									<small>Welcome,</small>
-									####
+									{% if username %}
+                                        {{ username }}
+                                    {% else %}
+                                        ####
+                                    {% endif %}
 								</span>
 
 								<i class="icon-caret-down"></i>
@@ -30,7 +34,7 @@
 
 
 								<li>
-									<a href="">
+									<a href="logout">
 										<i class="icon-off"></i>
 										退出登录
 									</a>
@@ -88,14 +92,31 @@
 					</div><!-- #sidebar-shortcuts -->
 
 					<ul class="nav nav-list">
-						<li class="active">
-							<a href="/index">
+                        <li class="active">
+							<a href="#" class="dropdown-toggle">
 								<i class="icon-dashboard"></i>
-								<span class="menu-text"> 控制台 </span>
+								<span class="menu-text">控制台 </span>
+								<b class="arrow icon-angle-down"></b>
 							</a>
-						</li>
+                                <ul class="submenu">
+								  <li>
+                                            <a href="index">
+                                                <i class="icon-leaf"></i>
+                                                审核记录
+                                            </a>
+								  </li>
+{#                                </ul>#}
+{#                                <ul class="submenu">#}
+                                      <li>
+                                                <a href="statistics">
+                                                    <i class="icon-leaf"></i>
+                                                    Inception统计
+                                                </a>
+                                      </li>
+                                    </ul>
+						   </li>
 
-                        <li class="active open">
+                        <li class="open">
 							<a href="#" class="dropdown-toggle">
 								<i class="blue icon-group  bigger-110"></i>
 								<span class="menu-text">运维工具 </span>
@@ -105,22 +126,52 @@
 
                                 <ul class="submenu">
 								  <li>
-                                     <a href="/#" class="dropdown-toggle">
-										<i class="icon-double-angle-right"></i>
-										SQL语法审核系统
-                                        <b class="arrow icon-angle-down"></b>
-									 </a>
-                                     <ul class="submenu">
-                                        <li>
-                                            <a href="inception_table_structure">
+{#                                     <a href="/#" class="dropdown-toggle">#}
+{#										<i class="icon-double-angle-right"></i>#}
+{#										SQL语法审核系统#}
+{#                                        <b class="arrow icon-angle-down"></b>#}
+{#									 </a>#}
+{#                                     <ul class="submenu">#}
+{#                                        <li>#}
+                                            <a href="sql_audit">
                                                 <i class="icon-leaf"></i>
-                                                表结构语法审核
+                                                SQL语法审核
                                             </a>
-                                        </li>
-                                     </ul>
+{#                                        </li>#}
+{#                                     </ul>#}
 								  </li>
                                 </ul>
 						   </li>
+                    {% if username == 'admin' %}
+                        <li class="open">
+{#                        <li class="active open">#}
+							<a href="#" class="dropdown-toggle">
+								<i class="blue icon-user  bigger-110"></i>
+								<span class="menu-text">用户管理 </span>
+								<b class="arrow icon-angle-down"></b>
+							</a>
+                                <ul class="submenu">
+								  <li>
+                                            <a href="create_sys_user">
+                                                <i class="icon-leaf"></i>
+                                                创建用户
+                                            </a>
+								  </li>
+                                    <li>
+                                            <a href="manage_sys_user">
+                                                <i class="icon-leaf"></i>
+                                                管理用户
+                                            </a>
+								  </li>
+                                    <li>
+                                            <a href="check_opt_log">
+                                                <i class="icon-leaf"></i>
+                                                查看用户操作日志
+                                            </a>
+								  </li>
+                                </ul>
+						   </li>
+                    {% endif %}
 					</ul><!-- /.nav-list -->
 
 					<div class="sidebar-collapse" id="sidebar-collapse">
